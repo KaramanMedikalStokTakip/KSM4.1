@@ -51,7 +51,7 @@ class User(BaseModel):
 
 class UserCreate(BaseModel):
     username: str
-    email: str
+    email: Optional[str] = None
     password: str
     role: str = "depo"
 
