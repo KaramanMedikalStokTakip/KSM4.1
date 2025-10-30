@@ -266,16 +266,6 @@ function Settings() {
                         />
                       </div>
                       <div>
-                        <Label>E-posta *</Label>
-                        <Input
-                          type="email"
-                          value={newUser.email}
-                          onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
-                          required
-                          data-testid="new-email-input"
-                        />
-                      </div>
-                      <div>
                         <Label>Şifre *</Label>
                         <Input
                           type="password"
