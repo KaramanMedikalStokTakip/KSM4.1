@@ -135,7 +135,7 @@ function Settings() {
       toast.success('Kullanıcı başarıyla eklendi');
       fetchUsers();
       setDialogOpen(false);
-      setNewUser({ username: '', email: '', password: '', role: 'depo' });
+      setNewUser({ username: '', password: '', role: 'depo' });
     } catch (error) {
       toast.error(error.response?.data?.detail || 'Kullanıcı eklenemedi');
     }
