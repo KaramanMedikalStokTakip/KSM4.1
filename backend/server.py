@@ -45,7 +45,7 @@ class User(BaseModel):
     model_config = ConfigDict(extra="ignore")
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     username: str
-    email: str
+    email: Optional[str] = None
     role: str = "depo"  # yönetici, depo, satış
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
