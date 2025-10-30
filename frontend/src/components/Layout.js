@@ -90,9 +90,13 @@ function Layout({ children }) {
         >
           <div className="p-4 border-b flex items-center justify-between">
             {sidebarOpen && (
-              <div>
-                <h2 className="font-bold text-xl text-blue-600">Karaman Sağlık</h2>
-                <p className="text-xs text-gray-500">Medikal Stok Sistemi</p>
+              <div className="flex items-center gap-3">
+                <img src="/logo.png" alt="Karaman Sağlık Logo" className="h-12 w-auto object-contain" />
+              </div>
+            )}
+            {!sidebarOpen && (
+              <div className="flex items-center justify-center w-full">
+                <img src="/logo.png" alt="Logo" className="h-10 w-auto object-contain" />
               </div>
             )}
             <Button
