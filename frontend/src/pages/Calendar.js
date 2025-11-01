@@ -165,7 +165,12 @@ function Calendar() {
             ) : (
               <div className="space-y-3">
                 {selectedDateEvents.map((event) => (
-                  <div key={event.id} className="p-3 bg-blue-50 rounded-lg" data-testid={`event-${event.id}`}>
+                  <div 
+                    key={event.id} 
+                    className="p-3 bg-blue-50 rounded-lg cursor-pointer hover:bg-blue-100 transition-colors" 
+                    data-testid={`event-${event.id}`}
+                    onClick={() => handleEventClick(event)}
+                  >
                     <div className="flex justify-between items-start">
                       <div className="flex-1">
                         <div className="flex items-center gap-2">
@@ -173,20 +178,12 @@ function Calendar() {
                           {event.alarm && <Bell className="w-4 h-4 text-blue-600" />}
                         </div>
                         {event.description && (
-                          <p className="text-sm text-gray-600 mt-1">{event.description}</p>
+                          <p className="text-sm text-gray-600 mt-1 line-clamp-2">{event.description}</p>
                         )}
                         <p className="text-xs text-gray-500 mt-2">
                           {new Date(event.date).toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })}
                         </p>
                       </div>
-                      <Button
-                        size="sm"
-                        variant="ghost"
-                        onClick={() => handleDelete(event.id)}
-                        data-testid={`delete-event-${event.id}`}
-                      >
-                        <Trash2 className="w-4 h-4 text-red-500" />
-                      </Button>
                     </div>
                   </div>
                 ))}
