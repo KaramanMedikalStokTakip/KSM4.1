@@ -246,9 +246,8 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Currency API Implementation"
-    - "Auth Registration Endpoint"
-    - "Auth Login Endpoint"
+    - "Customer Soft Delete Implementation"
+    - "Product Price Comparison Endpoint"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
@@ -256,3 +255,5 @@ test_plan:
 agent_communication:
     - agent: "testing"
       message: "Completed comprehensive backend testing as requested. All critical endpoints working correctly. Fixed email field to be optional in User and UserCreate models to match requirements. Currency API (EN ÖNEMLİ) fully functional with proper MetalpriceAPI integration and fallback values. Auth system working with JWT tokens. All basic functionality endpoints operational."
+    - agent: "main"
+      message: "Implemented three new features: 1) Customer soft delete with admin-only access, 2) Calendar event detail popup with all info and delete option, 3) Product price comparison popup showing top 10 lowest prices. Backend endpoints added for customer delete and product price comparison. Frontend updated with UI changes. Ready for backend testing of new endpoints."
