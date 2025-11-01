@@ -325,8 +325,19 @@ function Settings() {
                   <div key={u.id} className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
                     <div>
                       <p className="font-medium">{u.username}</p>
-                      <p className="text-sm text-gray-500">{u.email} - {u.role}</p>
+                      <p className="text-sm text-gray-500">{u.email || 'E-posta yok'} - {u.role}</p>
                     </div>
+                    {u.id !== user.id && (
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => handleDeleteUser(u.id)}
+                        className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                        data-testid={`delete-user-${u.id}`}
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </Button>
+                    )}
                   </div>
                 ))}
               </div>
