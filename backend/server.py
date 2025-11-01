@@ -611,14 +611,14 @@ async def get_currency_rates():
         "timestamp": datetime.now(timezone.utc).isoformat()
     }
 
-# Product price comparison endpoint (web search)
+# Product price comparison endpoint (SerpAPI Google Shopping)
 @api_router.get("/products/{product_id}/price-comparison")
 async def get_product_price_comparison(
     product_id: str,
     current_user: User = Depends(get_current_user)
 ):
     """
-    Search for product prices across the internet using web search
+    Search for real product prices using SerpAPI Google Shopping
     Returns top 10 lowest prices from different websites
     """
     # Get product details
@@ -626,112 +626,116 @@ async def get_product_price_comparison(
     if not product:
         raise HTTPException(status_code=404, detail="Ürün bulunamadı")
     
+    serpapi_key = os.environ.get('SERPAPI_KEY')
+    if not serpapi_key:
+        raise HTTPException(status_code=500, detail="SerpAPI key bulunamadı")
+    
     try:
-        # Prepare search query
-        search_query = f"{product['brand']} {product['name']} fiyat karşılaştırma türkiye"
+        # Prepare search query for Turkish market
+        search_query = f"{product['brand']} {product['name']}"
         
-        # Perform web search using aiohttp to call a price comparison service
-        # For demonstration, we'll search for the product on major Turkish e-commerce sites
+        # Call SerpAPI Google Shopping
         async with aiohttp.ClientSession() as session:
-            # Search on multiple sites
-            search_queries = [
-                f"{product['brand']} {product['name']} site:hepsiburada.com",
-                f"{product['brand']} {product['name']} site:trendyol.com",
-                f"{product['brand']} {product['name']} site:n11.com",
-                f"{product['brand']} {product['name']} site:amazon.com.tr",
-                f"{product['brand']} {product['name']} site:gittigidiyor.com",
-                f"{product['brand']} {product['name']} fiyat"
-            ]
-            
-            # Since we can't directly scrape sites, we'll use DuckDuckGo search API
-            results = []
-            for i, query in enumerate(search_queries[:5]):
-                try:
-                    # Using DuckDuckGo Instant Answer API (free, no key required)
-                    search_url = f"https://api.duckduckgo.com/?q={query}&format=json&no_html=1"
-                    async with session.get(search_url, timeout=5) as resp:
-                        if resp.status == 200:
-                            data = await resp.json()
-                            # Extract related topics or results if available
-                            if data.get('RelatedTopics'):
-                                for topic in data.get('RelatedTopics', [])[:2]:
-                                    if isinstance(topic, dict) and 'FirstURL' in topic:
-                                        # Extract site name from URL
-                                        url = topic.get('FirstURL', '')
-                                        site_name = 'Bilinmeyen Site'
-                                        if 'hepsiburada' in url:
-                                            site_name = 'Hepsiburada'
-                                        elif 'trendyol' in url:
-                                            site_name = 'Trendyol'
-                                        elif 'n11' in url:
-                                            site_name = 'N11'
-                                        elif 'amazon' in url:
-                                            site_name = 'Amazon TR'
-                                        elif 'gittigidiyor' in url:
-                                            site_name = 'GittiGidiyor'
-                                        
-                                        # Generate a realistic price variation
-                                        price_variation = (0.85 + (i * 0.03))
-                                        estimated_price = round(product['sale_price'] * price_variation, 2)
-                                        
-                                        results.append({
-                                            'site': site_name,
-                                            'price': estimated_price,
-                                            'url': url,
-                                            'available': True
-                                        })
-                except Exception as e:
-                    logging.warning(f"Search error for query {i}: {e}")
-                    continue
-            
-            # If no results from search, provide fallback with major Turkish e-commerce sites
-            if len(results) < 3:
-                major_sites = [
-                    {'site': 'Hepsiburada', 'base_url': 'https://www.hepsiburada.com/ara?q='},
-                    {'site': 'Trendyol', 'base_url': 'https://www.trendyol.com/sr?q='},
-                    {'site': 'N11', 'base_url': 'https://www.n11.com/arama?q='},
-                    {'site': 'Amazon TR', 'base_url': 'https://www.amazon.com.tr/s?k='},
-                    {'site': 'GittiGidiyor', 'base_url': 'https://www.gittigidiyor.com/arama/?k='},
-                    {'site': 'Çiçeksepeti', 'base_url': 'https://www.ciceksepeti.com/ara?q='},
-                    {'site': 'Akakçe', 'base_url': 'https://www.akakce.com/arama/?q='},
-                    {'site': 'Epttavm', 'base_url': 'https://www.epttavm.com/arama?q='},
-                    {'site': 'Morhipo', 'base_url': 'https://www.morhipo.com/arama?q='},
-                    {'site': 'Pazarama', 'base_url': 'https://www.pazarama.com/arama/?q='}
-                ]
-                
-                search_term = f"{product['brand']}+{product['name']}".replace(' ', '+')
-                results = []
-                
-                for i, site_info in enumerate(major_sites):
-                    # Generate realistic price variations
-                    price_factor = 0.88 + (i * 0.025) + (hash(site_info['site']) % 10) / 100
-                    estimated_price = round(product['sale_price'] * price_factor, 2)
-                    
-                    results.append({
-                        'site': site_info['site'],
-                        'price': estimated_price,
-                        'url': site_info['base_url'] + search_term,
-                        'available': i < 7  # First 7 sites show as available
-                    })
-            
-            # Sort by price and return top 10
-            results.sort(key=lambda x: x['price'])
-            top_results = results[:10]
-            
-            return {
-                'product_id': product['id'],
-                'product_name': product['name'],
-                'brand': product['brand'],
-                'category': product['category'],
-                'current_price': product['sale_price'],
-                'barcode': product.get('barcode', ''),
-                'price_results': top_results,
-                'result_count': len(top_results)
+            params = {
+                'engine': 'google_shopping',
+                'q': search_query,
+                'api_key': serpapi_key,
+                'gl': 'tr',  # Turkey
+                'hl': 'tr',  # Turkish language
+                'num': 20    # Get more results to filter
             }
             
-    except Exception as e:
-        logging.error(f"Price comparison error: {e}")
-        # Return fallback data if search fails
+            serpapi_url = 'https://serpapi.com/search.json'
+            
+            try:
+                async with session.get(serpapi_url, params=params, timeout=10) as resp:
+                    if resp.status == 200:
+                        data = await resp.json()
+                        
+                        results = []
+                        shopping_results = data.get('shopping_results', [])
+                        
+                        for item in shopping_results[:20]:  # Process up to 20 items
+                            try:
+                                # Extract price - handle different price formats
+                                price_str = item.get('price', '0')
+                                # Remove currency symbols and commas
+                                price_str = price_str.replace('₺', '').replace('TL', '').replace('.', '').replace(',', '.').strip()
+                                price = float(price_str)
+                                
+                                # Extract source/site name
+                                source = item.get('source', 'Bilinmeyen')
+                                
+                                # Get product link
+                                link = item.get('link', '#')
+                                
+                                # Check if in stock
+                                delivery = item.get('delivery', '')
+                                available = 'stok' not in delivery.lower() or 'mevcut' in delivery.lower()
+                                
+                                results.append({
+                                    'site': source,
+                                    'price': round(price, 2),
+                                    'url': link,
+                                    'available': available,
+                                    'title': item.get('title', '')
+                                })
+                            except (ValueError, TypeError) as e:
+                                logging.warning(f"Price parsing error: {e}")
+                                continue
+                        
+                        # Sort by price
+                        results.sort(key=lambda x: x['price'])
+                        
+                        # Get top 10 lowest prices
+                        top_results = results[:10]
+                        
+                        if len(top_results) > 0:
+                            return {
+                                'product_id': product['id'],
+                                'product_name': product['name'],
+                                'brand': product['brand'],
+                                'category': product['category'],
+                                'current_price': product['sale_price'],
+                                'barcode': product.get('barcode', ''),
+                                'price_results': top_results,
+                                'result_count': len(top_results),
+                                'source': 'SerpAPI Google Shopping'
+                            }
+                    else:
+                        logging.error(f"SerpAPI error: Status {resp.status}")
+                        
+            except asyncio.TimeoutError:
+                logging.error("SerpAPI timeout")
+            except Exception as e:
+                logging.error(f"SerpAPI request error: {e}")
+        
+        # Fallback: If SerpAPI fails, provide search links to major sites
+        major_sites = [
+            {'site': 'Hepsiburada', 'base_url': 'https://www.hepsiburada.com/ara?q='},
+            {'site': 'Trendyol', 'base_url': 'https://www.trendyol.com/sr?q='},
+            {'site': 'N11', 'base_url': 'https://www.n11.com/arama?q='},
+            {'site': 'Amazon TR', 'base_url': 'https://www.amazon.com.tr/s?k='},
+            {'site': 'GittiGidiyor', 'base_url': 'https://www.gittigidiyor.com/arama/?k='},
+            {'site': 'Çiçeksepeti', 'base_url': 'https://www.ciceksepeti.com/ara?q='},
+            {'site': 'Akakçe', 'base_url': 'https://www.akakce.com/arama/?q='},
+            {'site': 'Cimri', 'base_url': 'https://www.cimri.com/arama?q='},
+            {'site': 'Epttavm', 'base_url': 'https://www.epttavm.com/arama?q='},
+            {'site': 'Google Shopping', 'base_url': 'https://www.google.com/search?tbm=shop&q='}
+        ]
+        
+        search_term = f"{product['brand']}+{product['name']}".replace(' ', '+')
+        fallback_results = []
+        
+        for site_info in major_sites:
+            fallback_results.append({
+                'site': site_info['site'],
+                'price': product['sale_price'],
+                'url': site_info['base_url'] + search_term,
+                'available': True,
+                'title': f"{product['name']} - Manuel arama"
+            })
+        
         return {
             'product_id': product['id'],
             'product_name': product['name'],
@@ -739,10 +743,15 @@ async def get_product_price_comparison(
             'category': product['category'],
             'current_price': product['sale_price'],
             'barcode': product.get('barcode', ''),
-            'price_results': [],
-            'result_count': 0,
-            'error': 'Fiyat karşılaştırması şu anda kullanılamıyor'
+            'price_results': fallback_results[:10],
+            'result_count': len(fallback_results[:10]),
+            'source': 'Manuel Arama (SerpAPI mevcut değil)',
+            'info': 'Gerçek fiyatlar için siteleri ziyaret edin'
         }
+            
+    except Exception as e:
+        logging.error(f"Price comparison error: {e}")
+        raise HTTPException(status_code=500, detail=f"Fiyat karşılaştırması hatası: {str(e)}")
 
 # Calendar endpoints
 @api_router.post("/calendar", response_model=CalendarEvent)
