@@ -57,9 +57,15 @@ function Calendar() {
       await axios.delete(`${API}/calendar/${eventId}`);
       toast.success('Etkinlik silindi');
       fetchEvents();
+      setDetailDialogOpen(false);
     } catch (error) {
       toast.error('Silme işlemi başarısız');
     }
+  };
+
+  const handleEventClick = (event) => {
+    setSelectedEvent(event);
+    setDetailDialogOpen(true);
   };
 
   const resetForm = () => {
