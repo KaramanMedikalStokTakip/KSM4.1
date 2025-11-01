@@ -251,9 +251,7 @@ metadata:
   run_ui: false
 
 test_plan:
-  current_focus:
-    - "Customer Soft Delete Implementation"
-    - "Product Price Comparison Endpoint"
+  current_focus: []
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
@@ -263,3 +261,5 @@ agent_communication:
       message: "Completed comprehensive backend testing as requested. All critical endpoints working correctly. Fixed email field to be optional in User and UserCreate models to match requirements. Currency API (EN ÖNEMLİ) fully functional with proper MetalpriceAPI integration and fallback values. Auth system working with JWT tokens. All basic functionality endpoints operational."
     - agent: "main"
       message: "Implemented three new features: 1) Customer soft delete with admin-only access, 2) Calendar event detail popup with all info and delete option, 3) Product price comparison popup showing top 10 lowest prices. Backend endpoints added for customer delete and product price comparison. Frontend updated with UI changes. Ready for backend testing of new endpoints."
+    - agent: "testing"
+      message: "NEW FEATURES TESTING COMPLETE: Successfully tested Customer Soft Delete and Product Price Comparison endpoints as requested. Both features working perfectly. Customer soft delete properly enforces admin-only access (403 for non-admin, 200 for admin) and implements true soft delete (deleted customers filtered from GET /customers). Product price comparison endpoint returns all required fields correctly. All 14 backend tests passed. Backend implementation is solid and ready for production."
