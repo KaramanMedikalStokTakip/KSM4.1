@@ -137,7 +137,7 @@ backend:
     working: true
     file: "backend/server.py"
     stuck_count: 0
-    priority: "medium"
+    priority: "high"
     needs_retesting: false
     status_history:
         - working: "NA"
@@ -146,6 +146,9 @@ backend:
         - working: true
           agent: "testing"
           comment: "Product price comparison endpoint fully functional. Tested complete workflow: 1) Created test product with all required fields, 2) Called GET /api/products/{product_id}/price-comparison endpoint, 3) Verified all required fields returned correctly (product_id, product_name, brand, category, current_price, barcode), 4) Data validation passed - all returned values match original product data. Endpoint ready for frontend integration."
+        - working: true
+          agent: "main"
+          comment: "UPGRADED TO SERPAPI: Integrated SerpAPI Google Shopping for real-time price comparison. API key configured. Tested with iPhone 15 Pro and Braun Aspirator - both returned real prices from Turkish e-commerce sites (Trendyol, N11, Hepsiburada, Çiçeksepeti, etc.). Returns top 10 lowest prices with actual site links, prices, and availability. Fallback to manual search links if SerpAPI fails."
 
   - task: "Auth Registration Endpoint"
     implemented: true
