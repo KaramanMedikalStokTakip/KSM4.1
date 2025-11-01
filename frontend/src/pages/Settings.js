@@ -168,7 +168,7 @@ function Settings() {
     stock_add: 'Stok Ekleme',
     stock_edit: 'Stok Düzenleme',
     stock_delete: 'Stok Silme',
-    view_sale_price: 'Satış Fiyatını Görüntüleme',
+    view_purchase_price: 'Alış Fiyatını Görüntüleme',
     pos: 'Kasiyer/POS Erişimi',
     customers_view: 'Müşteri Görüntüleme',
     customers_add: 'Müşteri Ekleme',
