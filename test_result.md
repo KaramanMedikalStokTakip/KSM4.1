@@ -117,6 +117,30 @@ backend:
           agent: "testing"
           comment: "Currency API fully functional. Returns all required fields (usd_try, eur_try, gold_try, silver_try, timestamp). USD: 42.02, EUR: 48.78 within expected range (30-50). Gold and silver fallback values working correctly. MetalpriceAPI integration with proper fallback implemented."
 
+  - task: "Customer Soft Delete Implementation"
+    implemented: true
+    working: "NA"
+    file: "backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Added soft delete functionality for customers. Added 'deleted' field to Customer model. Modified GET /api/customers to filter out deleted customers. Created DELETE /api/customers/{customer_id} endpoint that only yönetici role can access. Soft delete preserves purchase history."
+
+  - task: "Product Price Comparison Endpoint"
+    implemented: true
+    working: "NA"
+    file: "backend/server.py"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Added GET /api/products/{product_id}/price-comparison endpoint. Returns product info for frontend to perform web search. Frontend will handle actual price comparison with demo data."
+
   - task: "Auth Registration Endpoint"
     implemented: true
     working: true
@@ -166,7 +190,53 @@ backend:
           comment: "Dashboard endpoint working correctly. GET /api/reports/dashboard requires authentication and returns all expected fields: total_products, low_stock_count, today_sales_count, today_revenue, week_sales_count, week_revenue. All values are properly numeric."
 
 frontend:
-  # Frontend testing not performed as per instructions
+  - task: "Customer Management - Remove Total Spent Display"
+    implemented: true
+    working: "NA"
+    file: "frontend/src/pages/Customers.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Removed total_spent display section from customer cards. Customer cards now show name, phone, email, date, notes, and purchase history button only."
+
+  - task: "Customer Management - Add Delete Button (Admin Only)"
+    implemented: true
+    working: "NA"
+    file: "frontend/src/pages/Customers.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Added delete button to customer cards. Button only visible for users with 'yönetici' role. Calls DELETE /api/customers/{customer_id} endpoint with confirmation dialog."
+
+  - task: "Calendar - Event Detail Popup"
+    implemented: true
+    working: "NA"
+    file: "frontend/src/pages/Calendar.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Made calendar events clickable. Added event detail popup showing title, description, date/time, and alarm status. Added delete button in popup. Events in both date view and all events list are clickable."
+
+  - task: "Product Price Comparison Feature"
+    implemented: true
+    working: "NA"
+    file: "frontend/src/pages/Stock.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Made product name clickable in product cards. Added price comparison popup that shows top 10 lowest prices from different websites (demo data). Shows site name, price, availability, and links. Highlights best price in green."
 
 metadata:
   created_by: "testing_agent"
