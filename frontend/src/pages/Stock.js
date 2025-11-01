@@ -410,7 +410,14 @@ function Stock() {
                 </div>
               ) : (
                 <div className="space-y-2">
-                  <h4 className="font-semibold text-gray-700 mb-3">İnternet Siteleri (En Düşük 10 Fiyat)</h4>
+                  <div className="flex justify-between items-center mb-3">
+                    <h4 className="font-semibold text-gray-700">İnternet Siteleri (En Düşük 10 Fiyat)</h4>
+                    {priceResults.length > 0 && (
+                      <span className="text-xs text-green-600 bg-green-50 px-2 py-1 rounded">
+                        ✓ Gerçek Zamanlı
+                      </span>
+                    )}
+                  </div>
                   {priceResults.length === 0 ? (
                     <p className="text-center text-gray-500 py-8">Fiyat bilgisi bulunamadı</p>
                   ) : (
