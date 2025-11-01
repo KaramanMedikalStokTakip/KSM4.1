@@ -119,15 +119,18 @@ backend:
 
   - task: "Customer Soft Delete Implementation"
     implemented: true
-    working: "NA"
+    working: true
     file: "backend/server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
         - working: "NA"
           agent: "main"
           comment: "Added soft delete functionality for customers. Added 'deleted' field to Customer model. Modified GET /api/customers to filter out deleted customers. Created DELETE /api/customers/{customer_id} endpoint that only yönetici role can access. Soft delete preserves purchase history."
+        - working: true
+          agent: "testing"
+          comment: "Customer soft delete fully functional. Tested complete workflow: 1) Created test customer successfully, 2) Non-admin user correctly denied access (403 Forbidden), 3) Admin user successfully deleted customer (200 OK), 4) Deleted customer correctly filtered out from GET /api/customers list. Role-based access control working properly - only 'yönetici' role can delete customers. Soft delete implementation preserves data integrity."
 
   - task: "Product Price Comparison Endpoint"
     implemented: true
