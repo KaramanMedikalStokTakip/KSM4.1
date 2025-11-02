@@ -658,6 +658,17 @@ function Stock() {
         </Card>
       )}
 
+      {filteredProducts.length === 0 && products.length > 0 && (
+        <Card>
+          <CardContent className="py-12 text-center">
+            <p className="text-gray-500">Filtrelere uygun ürün bulunamadı</p>
+            <Button variant="outline" onClick={clearFilters} className="mt-4">
+              Filtreleri Temizle
+            </Button>
+          </CardContent>
+        </Card>
+      )}
+
       {products.length === 0 && (
         <Card>
           <CardContent className="py-12 text-center">
@@ -665,6 +676,26 @@ function Stock() {
           </CardContent>
         </Card>
       )}
+
+      {/* Barcode Scanner Dialog */}
+      <Dialog open={scannerDialogOpen} onOpenChange={(open) => {
+        if (!open) stopBarcodeScanner();
+      }}>
+        <DialogContent className="max-w-xl">
+          <DialogHeader>
+            <DialogTitle>Barkod Tara</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div id="barcode-scanner-region" className="w-full"></div>
+            <p className="text-sm text-gray-600 text-center">
+              Barkodu kameranın önüne getirin. Otomatik olarak taranacaktır.
+            </p>
+            <Button variant="outline" onClick={stopBarcodeScanner} className="w-full">
+              İptal
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       {/* Price Comparison Dialog */}
       <Dialog open={priceCompareDialogOpen} onOpenChange={setPriceCompareDialogOpen}>
