@@ -11,7 +11,7 @@ from datetime import datetime
 import time
 
 # Backend URL from frontend/.env
-BACKEND_URL = "https://shopflow-update.preview.emergentagent.com/api"
+BACKEND_URL = "https://product-catalog-72.preview.emergentagent.com/api"
 
 class BackendTester:
     def __init__(self):
