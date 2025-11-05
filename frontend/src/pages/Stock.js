@@ -125,7 +125,12 @@ function Stock() {
             13, // CODE_39
             14, // CODE_93
             15, // CODE_128
-          ]
+          ],
+          // Mobil kamera için iyileştirmeler
+          rememberLastUsedCamera: true,
+          supportedScanTypes: [0, 1], // SCAN_TYPE_CAMERA ve SCAN_TYPE_FILE
+          showTorchButtonIfSupported: true, // Flaş butonu göster (destekleniyorsa)
+          showZoomSliderIfSupported: true, // Zoom slider göster (destekleniyorsa)
         },
         false
       );
