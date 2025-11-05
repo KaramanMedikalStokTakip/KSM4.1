@@ -267,11 +267,10 @@ test_plan:
     - "Login - Logo Filigran Eklendi"
     - "Calendar - Çift Tıklama ile Etkinlik Ekleme"
     - "Stock - Kutu Satış Özelliği"
-    - "Product Model - Kutu Satış Alanları Eklendi"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
-  backend_testing_complete: false
+  backend_testing_complete: true
 
 agent_communication:
     - agent: "main"
