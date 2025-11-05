@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth, API } from '../App';
 import axios from 'axios';
@@ -7,12 +7,26 @@ import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Label } from '../components/ui/label';
+import { Checkbox } from '../components/ui/checkbox';
+import { Eye, EyeOff } from 'lucide-react';
 
 function Login() {
   const navigate = useNavigate();
   const { login } = useAuth();
   const [loading, setLoading] = useState(false);
   const [loginForm, setLoginForm] = useState({ username: '', password: '' });
+  const [rememberMe, setRememberMe] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  // Load saved credentials if "remember me" was checked
+  useEffect(() => {
+    const savedUsername = localStorage.getItem('rememberedUsername');
+    const savedPassword = localStorage.getItem('rememberedPassword');
+    if (savedUsername && savedPassword) {
+      setLoginForm({ username: savedUsername, password: savedPassword });
+      setRememberMe(true);
+    }
+  }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();
