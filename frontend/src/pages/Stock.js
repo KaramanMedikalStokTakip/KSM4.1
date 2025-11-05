@@ -592,7 +592,12 @@ function Stock() {
                 <div className="flex justify-between items-center mb-3">
                   <span className="text-sm text-gray-600">Stok:</span>
                   <span className={`font-medium ${product.quantity <= product.min_quantity ? 'text-red-600' : 'text-green-600'}`}>
-                    {product.quantity} adet
+                    {product.quantity} {product.unit_type || 'adet'}
+                    {product.unit_type === 'kutu' && product.package_quantity && (
+                      <span className="text-xs text-gray-500 ml-1">
+                        ({product.quantity * product.package_quantity} adet)
+                      </span>
+                    )}
                   </span>
                 </div>
                 <div className="flex justify-between items-center mb-4">
