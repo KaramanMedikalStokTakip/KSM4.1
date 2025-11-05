@@ -30,8 +30,20 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-blue-50 p-4">
-      <Card className="w-full max-w-md shadow-xl" data-testid="login-card">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-blue-50 p-4 relative overflow-hidden">
+      {/* Logo Filigran */}
+      <div 
+        className="absolute inset-0 flex items-center justify-center pointer-events-none"
+        style={{
+          backgroundImage: 'url(/logo.png)',
+          backgroundSize: 'contain',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          opacity: 0.08,
+          filter: 'grayscale(100%)'
+        }}
+      />
+      <Card className="w-full max-w-md shadow-xl relative z-10" data-testid="login-card">
         <CardHeader className="space-y-1 text-center">
           <CardTitle className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
             Karaman Sağlık Medikal
