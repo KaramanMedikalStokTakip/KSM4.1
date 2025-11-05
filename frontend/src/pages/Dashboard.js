@@ -114,14 +114,14 @@ function Dashboard() {
           data-testid="low-stock-card"
           onClick={() => navigate('/stock')}
         >
-          <CardContent className="pt-6">
+          <CardContent className="pt-4 sm:pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-500">Düşük Stok</p>
-                <h3 className="text-3xl font-bold text-orange-600">{stats?.low_stock_count || 0}</h3>
+                <p className="text-xs sm:text-sm text-gray-500">Düşük Stok</p>
+                <h3 className="text-2xl sm:text-3xl font-bold text-orange-600">{stats?.low_stock_count || 0}</h3>
               </div>
-              <div className="bg-orange-100 p-3 rounded-full">
-                <TrendingDown className="w-6 h-6 text-orange-600" />
+              <div className="bg-orange-100 p-2 sm:p-3 rounded-full">
+                <TrendingDown className="w-5 h-5 sm:w-6 sm:h-6 text-orange-600" />
               </div>
             </div>
           </CardContent>
