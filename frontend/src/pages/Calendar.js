@@ -83,9 +83,9 @@ function Calendar() {
   const selectedDateEvents = getEventsForDate(selectedDate);
 
   return (
-    <div className="space-y-6" data-testid="calendar-page">
-      <div className="flex justify-between items-center">
-        <h1 className="text-4xl font-bold text-gray-800">Takvim ve Notlar</h1>
+    <div className="space-y-4 sm:space-y-6" data-testid="calendar-page">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800">Takvim ve Notlar</h1>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
             <Button data-testid="add-event-btn">
