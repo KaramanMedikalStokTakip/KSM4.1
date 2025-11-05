@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Stok yönetim iyileştirmeleri: 1) Fiyat karşılaştırma linklerinin düzgün çalışması, 2) Liste/Grid görünüm geçişi, 3) Gelişmiş arama ve filtreleme (ürün adı, barkod, marka, kategori - birden fazla filtre aynı anda), 4) Barkod tarama (USB/Bluetooth okuyucu + kamera ile tarama)"
+user_problem_statement: "İyileştirmeler: 1) Login ekranında logo filigran, 2) Takvimde tarih çift tıklama ile etkinlik ekleme, 3) Stok yönetiminde kutu satış özelliği (kutu içeriği adedi ile birlikte), 4) Admin giriş bilgisi oluşturma"
 
 backend:
   - task: "Product Endpoints - GET /api/products"
