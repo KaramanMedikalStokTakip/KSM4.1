@@ -145,11 +145,10 @@ function Calendar() {
         <Card className="lg:col-span-2">
           <CardContent className="pt-6 flex justify-center">
             <div onDoubleClick={(e) => {
-              if (selectedDate) {
-                const dateStr = selectedDate.toISOString().slice(0, 16);
-                setFormData({ ...formData, date: dateStr });
-                setDialogOpen(true);
-              }
+              const clickedDate = selectedDate || new Date();
+              const dateStr = clickedDate.toISOString().slice(0, 16);
+              setFormData({ ...formData, date: dateStr });
+              setDialogOpen(true);
             }}>
               <CalendarComponent
                 mode="single"
