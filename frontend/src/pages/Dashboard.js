@@ -80,12 +80,12 @@ function Dashboard() {
   }
 
   return (
-    <div className="space-y-6" data-testid="dashboard-page">
-      <div className="flex justify-between items-center">
-        <h1 className="text-4xl font-bold text-gray-800">Dashboard</h1>
-        <Button onClick={() => setSearchDialogOpen(true)} data-testid="search-product-btn">
+    <div className="space-y-4 sm:space-y-6" data-testid="dashboard-page">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800">Dashboard</h1>
+        <Button onClick={() => setSearchDialogOpen(true)} data-testid="search-product-btn" className="w-full sm:w-auto">
           <Search className="w-4 h-4 mr-2" />
-          Ürün Bul
+          <span className="sm:inline">Ürün Bul</span>
         </Button>
       </div>
 
