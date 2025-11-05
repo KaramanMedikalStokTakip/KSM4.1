@@ -145,19 +145,29 @@ function Calendar() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <Card className="lg:col-span-2">
           <CardContent className="pt-6 flex justify-center">
-            <div onDoubleClick={(e) => {
-              const clickedDate = selectedDate || new Date();
-              const dateStr = clickedDate.toISOString().slice(0, 16);
-              setFormData({ ...formData, date: dateStr });
-              setDialogOpen(true);
-            }}>
-              <CalendarComponent
-                mode="single"
-                selected={selectedDate}
-                onSelect={setSelectedDate}
-                className="rounded-md border"
-              />
-            </div>
+            <CalendarComponent
+              mode="single"
+              selected={selectedDate}
+              onSelect={(date) => {
+                if (date) {
+                  setSelectedDate(date);
+                  
+                  // Çift tıklama algılama
+                  const currentTime = new Date().getTime();
+                  const timeDiff = currentTime - lastClickTime;
+                  
+                  if (timeDiff < 300 && timeDiff > 0) {
+                    // Çift tıklama gerçekleşti
+                    const dateStr = date.toISOString().slice(0, 16);
+                    setFormData({ ...formData, date: dateStr });
+                    setDialogOpen(true);
+                  }
+                  
+                  setLastClickTime(currentTime);
+                }
+              }}
+              className="rounded-md border"
+            />
           </CardContent>
         </Card>
 
