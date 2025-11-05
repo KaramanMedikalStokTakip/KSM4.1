@@ -269,10 +269,7 @@ test_plan:
 
 agent_communication:
     - agent: "main"
-      message: "Implemented all 4 requested stock management improvements: 1) Fixed price comparison links to open correctly in new tabs, 2) Added Grid/List view toggle with full table view, 3) Implemented advanced filtering with multiple simultaneous filters (name, barcode, brand, category), 4) Added dual barcode scanning (USB/Bluetooth + camera with html5-qrcode). All features integrated seamlessly. Ready for testing."
-  stuck_tasks: []
-  test_all: false
-  test_priority: "high_first"
+      message: "Yeni iyileştirmeler tamamlandı: 1) Login ekranına logo filigran eklendi (tam sayfa, opacity %8), 2) Takvimde tarih çift tıklama ile etkinlik ekleme özelliği eklendi, 3) Stok yönetiminde kutu satış özelliği eklendi (Satış Birimi: Adet/Kutu, Kutu İçeriği adedi), 4) Admin kullanıcı oluşturuldu (Kullanıcı: admin, Şifre: admin123). Backend'de Product modeline unit_type ve package_quantity alanları eklendi. Frontend'de tüm görünümler güncellendi. Backend testi gerekiyor."
 
 agent_communication:
     - agent: "testing"
