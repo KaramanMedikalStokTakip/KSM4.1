@@ -128,26 +128,26 @@ function Dashboard() {
         </Card>
 
         <Card className="stat-card" data-testid="today-sales-card">
-          <CardContent className="pt-6">
+          <CardContent className="pt-4 sm:pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-500">Bugünkü Satış</p>
-                <h3 className="text-3xl font-bold text-green-600">₺{stats?.today_revenue?.toFixed(2) || '0.00'}</h3>
+                <p className="text-xs sm:text-sm text-gray-500">Bugünkü Satış</p>
+                <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-green-600">₺{stats?.today_revenue?.toFixed(2) || '0.00'}</h3>
                 <p className="text-xs text-gray-400">{stats?.today_sales_count || 0} adet</p>
               </div>
-              <div className="bg-green-100 p-3 rounded-full">
-                <DollarSign className="w-6 h-6 text-green-600" />
+              <div className="bg-green-100 p-2 sm:p-3 rounded-full">
+                <DollarSign className="w-5 h-5 sm:w-6 sm:h-6 text-green-600" />
               </div>
             </div>
           </CardContent>
         </Card>
 
         <Card className="stat-card" data-testid="week-sales-card">
-          <CardContent className="pt-6">
+          <CardContent className="pt-4 sm:pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-500">Haftalık Satış</p>
-                <h3 className="text-3xl font-bold text-purple-600">₺{stats?.week_revenue?.toFixed(2) || '0.00'}</h3>
+                <p className="text-xs sm:text-sm text-gray-500">Haftalık Satış</p>
+                <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-purple-600">₺{stats?.week_revenue?.toFixed(2) || '0.00'}</h3>
                 <p className="text-xs text-gray-400">{stats?.week_sales_count || 0} adet</p>
               </div>
               <div className="bg-purple-100 p-3 rounded-full">
