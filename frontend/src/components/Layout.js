@@ -9,8 +9,25 @@ import { LayoutDashboard, Package, ShoppingCart, Users, FileText, Calendar as Ca
 function Layout({ children }) {
   const { user, logout } = useAuth();
   const location = useLocation();
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false); // Mobilde kapalı başlar
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currency, setCurrency] = useState(null);
+
+  // Ekran boyutunu dinle
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setSidebarOpen(true);
+        setMobileMenuOpen(false);
+      } else {
+        setSidebarOpen(false);
+      }
+    };
+    
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     fetchCurrency();
