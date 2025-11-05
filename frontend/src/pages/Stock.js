@@ -282,7 +282,9 @@ function Stock() {
       purchase_price: 0,
       sale_price: 0,
       description: '',
-      image_base64: ''
+      image_base64: '',
+      unit_type: 'adet',
+      package_quantity: null
     });
     setEditMode(false);
     setCurrentProduct(null);
