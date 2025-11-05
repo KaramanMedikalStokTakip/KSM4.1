@@ -299,10 +299,10 @@ function Stock() {
   }
 
   return (
-    <div className="space-y-6" data-testid="stock-page">
-      <div className="flex justify-between items-center">
-        <h1 className="text-4xl font-bold text-gray-800">Stok Yönetimi</h1>
-        <div className="flex gap-2">
+    <div className="space-y-4 sm:space-y-6" data-testid="stock-page">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800">Stok Yönetimi</h1>
+        <div className="flex flex-wrap gap-2 w-full sm:w-auto">
           <Button 
             variant="outline" 
             size="sm"
