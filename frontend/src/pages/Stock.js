@@ -670,9 +670,14 @@ function Stock() {
                         {product.barcode}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <span className={`text-sm font-medium ${product.quantity <= product.min_quantity ? 'text-red-600' : 'text-green-600'}`}>
-                          {product.quantity} adet
-                        </span>
+                        <div className={`text-sm font-medium ${product.quantity <= product.min_quantity ? 'text-red-600' : 'text-green-600'}`}>
+                          <div>{product.quantity} {product.unit_type || 'adet'}</div>
+                          {product.unit_type === 'kutu' && product.package_quantity && (
+                            <div className="text-xs text-gray-500">
+                              ({product.quantity * product.package_quantity} adet)
+                            </div>
+                          )}
+                        </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span className="text-sm font-bold text-blue-600">₺{product.sale_price.toFixed(2)}</span>
