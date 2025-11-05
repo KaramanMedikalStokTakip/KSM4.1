@@ -13,6 +13,7 @@ import Reports from './pages/Reports';
 import Calendar from './pages/Calendar';
 import Settings from './pages/Settings';
 import Layout from './components/Layout';
+import PWAInstallBanner from './components/PWAInstallBanner';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
