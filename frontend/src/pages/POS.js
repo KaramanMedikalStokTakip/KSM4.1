@@ -5,8 +5,10 @@ import { toast } from 'sonner';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../components/ui/dialog';
 import { Separator } from '../components/ui/separator';
-import { ShoppingCart, Trash2, Minus, Plus, Barcode } from 'lucide-react';
+import { ShoppingCart, Trash2, Minus, Plus, Barcode, Camera, AlertCircle } from 'lucide-react';
+import { Html5Qrcode } from 'html5-qrcode';
 
 function POS() {
   const [cart, setCart] = useState([]);
@@ -14,7 +16,10 @@ function POS() {
   const [discount, setDiscount] = useState(0);
   const [paymentMethod, setPaymentMethod] = useState('nakit');
   const [loading, setLoading] = useState(false);
+  const [scannerDialogOpen, setScannerDialogOpen] = useState(false);
+  const [cameraError, setCameraError] = useState('');
   const barcodeRef = useRef(null);
+  const scannerRef = useRef(null);
 
   useEffect(() => {
     // Focus on barcode input when component mounts
