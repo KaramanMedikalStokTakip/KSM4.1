@@ -28,6 +28,11 @@ function Stock() {
   const [cameraError, setCameraError] = useState('');
   const [scannerMode, setScannerMode] = useState('filter'); // 'filter' or 'form'
   const scannerRef = useRef(null);
+  const [cameraDialogOpen, setCameraDialogOpen] = useState(false);
+  const [cameraStream, setCameraStream] = useState(null);
+  const [capturedPhoto, setCapturedPhoto] = useState(null);
+  const videoRef = useRef(null);
+  const canvasRef = useRef(null);
   const [formData, setFormData] = useState({
     name: '',
     barcode: '',
