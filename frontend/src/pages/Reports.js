@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { API } from '../App';
 import { toast } from 'sonner';
@@ -7,7 +7,13 @@ import { Input } from '../components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { Download, FileText } from 'lucide-react';
+import { Download, FileText, FileSpreadsheet, FileType } from 'lucide-react';
+import { Label } from '../components/ui/label';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
+import * as XLSX from 'xlsx';
+import { Document, Packer, Paragraph, Table, TableCell, TableRow, WidthType } from 'docx';
+import { saveAs } from 'file-saver';
 
 function Reports() {
   const [startDate, setStartDate] = useState('');
@@ -15,6 +21,13 @@ function Reports() {
   const [topSelling, setTopSelling] = useState([]);
   const [topProfit, setTopProfit] = useState([]);
   const [loading, setLoading] = useState(false);
+  
+  // Stok raporu için state'ler
+  const [brands, setBrands] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [selectedBrand, setSelectedBrand] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [stockReport, setStockReport] = useState(null);
 
   const fetchTopSelling = async () => {
     if (!startDate || !endDate) {
