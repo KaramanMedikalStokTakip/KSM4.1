@@ -327,14 +327,25 @@ function Dashboard() {
               <Card className="bg-blue-50">
                 <CardContent className="pt-4">
                   {foundProduct.image_url && (
-                    <img src={foundProduct.image_url} alt={foundProduct.name} className="w-full h-32 object-cover rounded-md mb-3" />
+                    <div className="relative mb-4">
+                      <img 
+                        src={foundProduct.image_url} 
+                        alt={foundProduct.name} 
+                        className="w-full h-64 object-contain rounded-lg bg-white cursor-pointer hover:opacity-90 transition-opacity" 
+                        onClick={() => setImagePreviewOpen(true)}
+                        title="Tam boyutta görmek için tıklayın"
+                      />
+                      <div className="absolute top-2 right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded">
+                        Tıklayarak büyüt
+                      </div>
+                    </div>
                   )}
                   <h3 className="font-bold text-xl text-gray-800 mb-2">{foundProduct.name}</h3>
                   <div className="space-y-1 text-sm">
                     <p><span className="font-medium">Marka:</span> {foundProduct.brand}</p>
                     <p><span className="font-medium">Kategori:</span> {foundProduct.category}</p>
                     <p><span className="font-medium">Barkod:</span> {foundProduct.barcode}</p>
-                    <p><span className="font-medium">Stok:</span> <span className={foundProduct.quantity <= foundProduct.min_quantity ? 'text-red-600' : 'text-green-600'}>{foundProduct.quantity} adet</span></p>
+                    <p><span className="font-medium">Stok:</span> <span className={foundProduct.quantity <= foundProduct.min_quantity ? 'text-red-600' : 'text-green-600'}>{foundProduct.quantity} {foundProduct.unit_type || 'adet'}</span></p>
                     <p><span className="font-medium">Satış Fiyatı:</span> <span className="text-blue-600 font-bold">₺{foundProduct.sale_price.toFixed(2)}</span></p>
                     {foundProduct.description && (
                       <p className="mt-2 text-gray-600">{foundProduct.description}</p>
