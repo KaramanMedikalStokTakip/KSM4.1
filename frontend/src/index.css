@@ -81,7 +81,7 @@
   }
   
   /* Card and container styles */
-  body.dark-mode [class*=\"card\"] {
+  body.dark-mode [class*="card"] {
     background-color: #2d3748 !important;
     border-color: #4a5568 !important;
   }
@@ -101,7 +101,7 @@
   }
   
   /* Buttons */
-  body.dark-mode button:not([class*=\"bg-blue\"]):not([class*=\"bg-green\"]):not([class*=\"bg-red\"]):not([class*=\"bg-yellow\"]) {
+  body.dark-mode button:not([class*="bg-blue"]):not([class*="bg-green"]):not([class*="bg-red"]):not([class*="bg-yellow"]) {
     background-color: #374151 !important;
     color: #ffffff !important;
   }
@@ -124,18 +124,68 @@
   }
   
   /* Modals and dialogs */
-  body.dark-mode [role=\"dialog\"],
-  body.dark-mode [role=\"alertdialog\"] {
+  body.dark-mode [role="dialog"],
+  body.dark-mode [role="alertdialog"] {
     background-color: #2d3748 !important;
     color: #ffffff !important;
   }
   
   /* Dropdowns and popovers */
-  body.dark-mode [role=\"menu\"],
-  body.dark-mode [role=\"listbox\"] {
+  body.dark-mode [role="menu"],
+  body.dark-mode [role="listbox"] {
     background-color: #374151 !important;
     color: #ffffff !important;
     border-color: #4a5568 !important;
+  }
+  
+  /* Toast/Notification styles for dark mode */
+  body.dark-mode [data-sonner-toast] {
+    background-color: #2d3748 !important;
+    border-color: #4a5568 !important;
+    color: #ffffff !important;
+  }
+  
+  body.dark-mode [data-sonner-toast] [data-title] {
+    color: #ffffff !important;
+  }
+  
+  body.dark-mode [data-sonner-toast] [data-description] {
+    color: #e2e8f0 !important;
+  }
+  
+  body.dark-mode [data-sonner-toast] [data-button] {
+    background-color: #374151 !important;
+    color: #ffffff !important;
+  }
+  
+  body.dark-mode [data-sonner-toast][data-type="success"] {
+    background-color: #065f46 !important;
+    border-color: #047857 !important;
+  }
+  
+  body.dark-mode [data-sonner-toast][data-type="error"] {
+    background-color: #7f1d1d !important;
+    border-color: #991b1b !important;
+  }
+  
+  body.dark-mode [data-sonner-toast][data-type="warning"] {
+    background-color: #78350f !important;
+    border-color: #92400e !important;
+  }
+  
+  body.dark-mode [data-sonner-toast][data-type="info"] {
+    background-color: #1e3a8a !important;
+    border-color: #1e40af !important;
+  }
+  
+  body.dark-mode [data-sonner-toast] [data-close-button] {
+    background-color: #374151 !important;
+    color: #e2e8f0 !important;
+  }
+  
+  body.dark-mode [data-sonner-toast] [data-close-button]:hover {
+    background-color: #4a5568 !important;
+    color: #ffffff !important;
   }
   
   /* Scrollbars */

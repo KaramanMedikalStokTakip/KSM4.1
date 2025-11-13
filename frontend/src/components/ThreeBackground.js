@@ -3,37 +3,40 @@ import * as THREE from 'three';
 
 function ThreeBackground({ isDark = false }) {
   const containerRef = useRef(null);
+  const sceneRef = useRef(null);
+  const rendererRef = useRef(null);
+  const cameraRef = useRef(null);
+  const particlesMeshRef = useRef(null);
+  const linesMeshRef = useRef(null);
   const animationIdRef = useRef(null);
   const mouseRef = useRef({ x: 0, y: 0 });
+  const isAnimatingRef = useRef(false);
 
   useEffect(() => {
     if (!containerRef.current) return;
 
-    let scene, camera, renderer, particlesMesh, linesMesh;
-    let isAnimating = true;
-
     // Initialize Three.js scene
     const init = () => {
       // Scene
-      scene = new THREE.Scene();
+      sceneRef.current = new THREE.Scene();
 
       // Camera
-      camera = new THREE.PerspectiveCamera(
+      cameraRef.current = new THREE.PerspectiveCamera(
         75,
         window.innerWidth / window.innerHeight,
         1,
         1000
       );
-      camera.position.z = 400;
+      cameraRef.current.position.z = 400;
 
       // Renderer
-      renderer = new THREE.WebGLRenderer({ 
+      rendererRef.current = new THREE.WebGLRenderer({ 
         alpha: true, 
         antialias: true 
       });
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      renderer.setPixelRatio(window.devicePixelRatio);
-      containerRef.current.appendChild(renderer.domElement);
+      rendererRef.current.setSize(window.innerWidth, window.innerHeight);
+      rendererRef.current.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      containerRef.current.appendChild(rendererRef.current.domElement);
 
       // Particles
       const particlesGeometry = new THREE.BufferGeometry();
@@ -57,8 +60,8 @@ function ThreeBackground({ isDark = false }) {
         opacity: isDark ? 0.6 : 0.8,
       });
 
-      particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
-      scene.add(particlesMesh);
+      particlesMeshRef.current = new THREE.Points(particlesGeometry, particlesMaterial);
+      sceneRef.current.add(particlesMeshRef.current);
 
       // Lines
       const linesMaterial = new THREE.LineBasicMaterial({
@@ -68,27 +71,28 @@ function ThreeBackground({ isDark = false }) {
       });
 
       const linesGeometry = new THREE.BufferGeometry();
-      linesMesh = new THREE.LineSegments(linesGeometry, linesMaterial);
-      scene.add(linesMesh);
+      linesMeshRef.current = new THREE.LineSegments(linesGeometry, linesMaterial);
+      sceneRef.current.add(linesMeshRef.current);
     };
 
     // Animation loop
     const animate = () => {
-      if (!isAnimating) return;
+      if (!isAnimatingRef.current) return;
+      if (!particlesMeshRef.current || !linesMeshRef.current || !rendererRef.current || !sceneRef.current || !cameraRef.current) return;
 
       animationIdRef.current = requestAnimationFrame(animate);
 
       // Rotate particles
-      particlesMesh.rotation.x += 0.001;
-      particlesMesh.rotation.y += 0.001;
+      particlesMeshRef.current.rotation.x += 0.001;
+      particlesMeshRef.current.rotation.y += 0.001;
 
       // Mouse interaction
-      camera.position.x += (mouseRef.current.x * 0.5 - camera.position.x) * 0.05;
-      camera.position.y += (-mouseRef.current.y * 0.5 - camera.position.y) * 0.05;
-      camera.lookAt(scene.position);
+      cameraRef.current.position.x += (mouseRef.current.x * 0.5 - cameraRef.current.position.x) * 0.05;
+      cameraRef.current.position.y += (-mouseRef.current.y * 0.5 - cameraRef.current.position.y) * 0.05;
+      cameraRef.current.lookAt(sceneRef.current.position);
 
       // Update lines
-      const positions = particlesMesh.geometry.attributes.position.array;
+      const positions = particlesMeshRef.current.geometry.attributes.position.array;
       const linePositions = [];
       const particlesCount = positions.length / 3;
 
@@ -114,13 +118,13 @@ function ThreeBackground({ isDark = false }) {
         }
       }
 
-      linesMesh.geometry.setAttribute(
+      linesMeshRef.current.geometry.setAttribute(
         'position',
         new THREE.Float32BufferAttribute(linePositions, 3)
       );
-      linesMesh.rotation.copy(particlesMesh.rotation);
+      linesMeshRef.current.rotation.copy(particlesMeshRef.current.rotation);
 
-      renderer.render(scene, camera);
+      rendererRef.current.render(sceneRef.current, cameraRef.current);
     };
 
     // Mouse move handler
@@ -131,20 +135,22 @@ function ThreeBackground({ isDark = false }) {
 
     // Resize handler
     const handleResize = () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
+      if (!cameraRef.current || !rendererRef.current) return;
+      cameraRef.current.aspect = window.innerWidth / window.innerHeight;
+      cameraRef.current.updateProjectionMatrix();
+      rendererRef.current.setSize(window.innerWidth, window.innerHeight);
     };
 
     // Initialize and start animation
     init();
+    isAnimatingRef.current = true;
     document.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('resize', handleResize);
     animate();
 
     // Cleanup
     return () => {
-      isAnimating = false;
+      isAnimatingRef.current = false;
       document.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('resize', handleResize);
       
@@ -152,21 +158,31 @@ function ThreeBackground({ isDark = false }) {
         cancelAnimationFrame(animationIdRef.current);
       }
 
-      if (containerRef.current && renderer.domElement) {
-        containerRef.current.removeChild(renderer.domElement);
+      if (containerRef.current && rendererRef.current && rendererRef.current.domElement) {
+        try {
+          containerRef.current.removeChild(rendererRef.current.domElement);
+        } catch (e) {
+          // Element might already be removed
+        }
       }
 
-      if (renderer) {
-        renderer.dispose();
+      if (rendererRef.current) {
+        rendererRef.current.dispose();
+        rendererRef.current = null;
       }
-      if (particlesMesh) {
-        particlesMesh.geometry.dispose();
-        particlesMesh.material.dispose();
+      if (particlesMeshRef.current) {
+        particlesMeshRef.current.geometry.dispose();
+        particlesMeshRef.current.material.dispose();
+        particlesMeshRef.current = null;
       }
-      if (linesMesh) {
-        linesMesh.geometry.dispose();
-        linesMesh.material.dispose();
+      if (linesMeshRef.current) {
+        linesMeshRef.current.geometry.dispose();
+        linesMeshRef.current.material.dispose();
+        linesMeshRef.current = null;
       }
+      
+      sceneRef.current = null;
+      cameraRef.current = null;
     };
   }, [isDark]);
 

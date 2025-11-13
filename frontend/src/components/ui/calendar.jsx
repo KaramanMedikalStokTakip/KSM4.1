@@ -40,15 +40,15 @@ function Calendar({
         ),
         day: cn(
           buttonVariants({ variant: "ghost" }),
-          "h-14 w-14 p-0 font-normal aria-selected:opacity-100 text-base hover:bg-blue-100 dark:hover:bg-blue-900"
+          "h-14 w-14 p-0 font-normal aria-selected:opacity-100 text-base hover:bg-blue-100 dark-mode:hover:bg-blue-900/30"
         ),
         day_range_start: "day-range-start",
         day_range_end: "day-range-end",
         day_selected:
-          "bg-blue-600 text-white hover:bg-blue-700 hover:text-white focus:bg-blue-700 focus:text-white font-bold shadow-md",
-        day_today: "bg-blue-100 text-blue-900 font-semibold border-2 border-blue-400",
+          "bg-blue-600 text-white hover:bg-blue-700 hover:text-white focus:bg-blue-700 focus:text-white font-bold shadow-md dark-mode:bg-blue-500 dark-mode:text-white dark-mode:hover:bg-blue-600",
+        day_today: "bg-blue-100 text-blue-900 font-semibold border-2 border-blue-400 dark-mode:bg-blue-900/40 dark-mode:text-blue-300 dark-mode:border-blue-500",
         day_outside:
-          "day-outside text-muted-foreground aria-selected:bg-accent/50 aria-selected:text-muted-foreground",
+          "day-outside text-muted-foreground aria-selected:bg-accent/50 aria-selected:text-muted-foreground dark-mode:text-gray-600",
         day_disabled: "text-muted-foreground opacity-50",
         day_range_middle:
           "aria-selected:bg-accent aria-selected:text-accent-foreground",
