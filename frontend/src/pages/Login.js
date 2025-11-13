@@ -120,8 +120,7 @@ function Login() {
 
   const handleDismissPWA = () => {
     setShowPWABanner(false);
-    // Use sessionStorage instead of localStorage so it shows again on browser restart
-    sessionStorage.setItem('pwa-install-dismissed', 'true');
+    // Don't store anything - banner will show again on page reload/refresh
   };
 
   return (
