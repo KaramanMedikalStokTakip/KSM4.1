@@ -541,6 +541,60 @@ async def get_top_profit(
     sorted_profits = sorted(product_profits.items(), key=lambda x: x[1]["total_profit"], reverse=True)[:limit]
     return [{"product_id": k, **v} for k, v in sorted_profits]
 
+@api_router.get("/reports/stock")
+async def get_stock_report(
+    brand: Optional[str] = Query(None, description="Marka filtresi"),
+    category: Optional[str] = Query(None, description="Kategori filtresi"),
+    current_user: User = Depends(get_current_user)
+):
+    """Stok raporunu filtrelerle birlikte döndürür"""
+    query = {}
+    
+    if brand:
+        query["brand"] = {"$regex": brand, "$options": "i"}
+    
+    if category:
+        query["category"] = {"$regex": category, "$options": "i"}
+    
+    products = await db.products.find(query, {"_id": 0}).sort("name", 1).to_list(10000)
+    
+    # Stok raporunu hazırla
+    report_data = []
+    total_value = 0
+    total_items = 0
+    
+    for product in products:
+        item_value = product["quantity"] * product["purchase_price"]
+        total_value += item_value
+        total_items += product["quantity"]
+        
+        report_data.append({
+            "name": product["name"],
+            "barcode": product["barcode"],
+            "brand": product["brand"],
+            "category": product["category"],
+            "quantity": product["quantity"],
+            "unit_type": product.get("unit_type", "adet"),
+            "min_quantity": product["min_quantity"],
+            "purchase_price": product["purchase_price"],
+            "sale_price": product["sale_price"],
+            "stock_value": item_value,
+            "status": "Düşük Stok" if product["quantity"] <= product["min_quantity"] else "Normal"
+        })
+    
+    return {
+        "products": report_data,
+        "summary": {
+            "total_products": len(report_data),
+            "total_items": total_items,
+            "total_value": round(total_value, 2),
+            "filters_applied": {
+                "brand": brand,
+                "category": category
+            }
+        }
+    }
+
 @api_router.get("/reports/dashboard")
 async def get_dashboard_stats(current_user: User = Depends(get_current_user)):
     total_products = await db.products.count_documents({})
