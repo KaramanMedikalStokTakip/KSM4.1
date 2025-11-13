@@ -94,7 +94,7 @@ function Login() {
         {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
       </button>
 
-      {/* Logo Watermark */}
+      {/* Logo Watermark - Colorful */}
       <div 
         className="absolute inset-0 flex items-center justify-center pointer-events-none"
         style={{
@@ -102,8 +102,7 @@ function Login() {
           backgroundSize: 'contain',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
-          opacity: isDarkMode ? 0.05 : 0.08,
-          filter: 'grayscale(100%)'
+          opacity: isDarkMode ? 0.08 : 0.1
         }}
       />
 
