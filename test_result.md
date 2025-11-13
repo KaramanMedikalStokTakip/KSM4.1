@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "PWA Dönüşümü: Chrome tarayıcısından Progressive Web App (PWA) olarak telefona mobil uygulama şeklinde eklenebilmesi için gerekli tüm özellikler eklendi"
+user_problem_statement: "Stok Yönetimi ve Dashboard İyileştirmeleri: 1) Stok yönetiminde ürün görseline tıklandığında detaylı pop-up gösterme (tam görsel + açıklama), 2) Dashboard'da barkod ile bulunan ürün görselinin tam boyut gösterimi, 3) Dark mode açıklama okunabilirlik düzeltmesi, 4) Düşük stok kartı uyarı sistemi"
 
 backend:
   - task: "PWA Backend Hazırlık (Değişiklik Yok)"
