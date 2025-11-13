@@ -236,7 +236,7 @@ function Login() {
         <div className={`mt-6 text-center text-xs ${
           isDarkMode ? 'text-gray-400' : 'text-gray-500'
         }`}>
-          © 2024 Karaman Sağlık Medikal <br />
+          © 2026 Karaman Sağlık Medikal <br />
           Güvenli Giriş Sistemi
         </div>
       </div>
