@@ -31,9 +31,9 @@ function Login() {
     // Check if already installed
     const isInstalled = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
     
-    // Check if user dismissed banner recently
-    const dismissed = localStorage.getItem('pwa-install-dismissed');
-    const shouldShowBanner = !isInstalled && (!dismissed || (Date.now() - parseInt(dismissed)) > 7 * 24 * 60 * 60 * 1000);
+    // Check if user dismissed banner in this session only
+    const dismissed = sessionStorage.getItem('pwa-install-dismissed');
+    const shouldShowBanner = !isInstalled && !dismissed;
     
     if (shouldShowBanner) {
       // Show banner after 2 seconds
