@@ -7,7 +7,7 @@ import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { Eye, EyeOff, UserCircle2, Moon, Sun } from 'lucide-react';
-import ThreeBackground from '../components/ThreeBackground';
+import CSSParticleBackground from '../components/CSSParticleBackground';
 
 function Login() {
   const navigate = useNavigate();
