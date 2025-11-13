@@ -9,8 +9,6 @@ function ThreeBackground({ isDark = false }) {
   useEffect(() => {
     if (!containerRef.current) return;
 
-    console.log('[ThreeBackground] useEffect triggered, isDark:', isDark);
-
     let scene, camera, renderer, particlesMesh, linesMesh;
 
     // Scene
