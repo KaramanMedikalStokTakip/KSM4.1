@@ -202,6 +202,42 @@ frontend:
           agent: "main"
           comment: "PWAInstallBanner component'i oluşturuldu. Kullanıcıya PWA kurulumu için güzel bir banner gösteriliyor. 'Kur' butonu, 'Şimdi Değil' seçeneği, otomatik gizlenme (7 gün), zaten kuruluysa gösterilmiyor. App.js'e eklendi."
 
+  - task: "Stok Yönetimi - Ürün Detay Pop-up"
+    implemented: true
+    working: true
+    file: "frontend/src/pages/Stock.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: true
+          agent: "main"
+          comment: "Ürün görsellerine tıklanabilirlik eklendi. Tıklandığında tam boyut görsel, detaylı ürün bilgileri, tam açıklama metni ve aksiyon butonları içeren pop-up açılıyor. Dark mode desteği eklendi (açıklama alanı için dark:bg-blue-900/20, dark:text-gray-300)."
+
+  - task: "Dashboard - Ürün Bul Görsel İyileştirmesi"
+    implemented: true
+    working: true
+    file: "frontend/src/pages/Dashboard.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: true
+          agent: "main"
+          comment: "Barkod ile bulunan ürünün görseli h-32'den h-64'e yükseltildi, object-contain kullanıldı. Görsele tıklandığında tam boyut modal açılıyor. 'Tıklayarak büyüt' etiketi eklendi."
+
+  - task: "Dashboard - Düşük Stok Kartı Uyarı Sistemi"
+    implemented: true
+    working: true
+    file: "frontend/src/pages/Dashboard.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: true
+          agent: "main"
+          comment: "Düşük stok yoksa (low_stock_count === 0) karta tıklandığında bilgilendirme toast mesajı gösteriliyor: 'Düşük stokta ürün bulunmuyor! 🎉'. Kart opacity-75 ile görsel olarak pasif gösteriliyor ve yeşil '✓ Hepsi yeterli' mesajı eklendi."
+
 metadata:
   created_by: "main_agent"
   version: "3.0"
