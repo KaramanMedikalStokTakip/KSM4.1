@@ -8,15 +8,18 @@ import { Input } from '../components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../components/ui/dialog';
 import { Label } from '../components/ui/label';
-import { Plus, Eye, Trash2 } from 'lucide-react';
+import { Plus, Eye, Trash2, Search } from 'lucide-react';
 
 function Customers() {
   const { user } = useAuth();
   const [customers, setCustomers] = useState([]);
+  const [filteredCustomers, setFilteredCustomers] = useState([]);
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [purchases, setPurchases] = useState([]);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [purchasesDialogOpen, setPurchasesDialogOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isSearching, setIsSearching] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
