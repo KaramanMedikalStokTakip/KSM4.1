@@ -140,7 +140,6 @@ function ThreeBackground({ isDark = false }) {
     init();
     document.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('resize', handleResize);
-    console.log('🚀 Starting animation loop...');
     animate();
 
     // Cleanup
