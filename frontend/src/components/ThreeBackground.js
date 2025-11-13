@@ -10,9 +10,11 @@ function ThreeBackground({ isDark = false }) {
   const linesMeshRef = useRef(null);
   const animationIdRef = useRef(null);
   const mouseRef = useRef({ x: 0, y: 0 });
+  const isCleanedUpRef = useRef(false);
 
   useEffect(() => {
     if (!containerRef.current) return;
+    isCleanedUpRef.current = false;
 
     // Scene setup
     const scene = new THREE.Scene();
