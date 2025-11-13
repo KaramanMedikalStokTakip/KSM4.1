@@ -429,6 +429,19 @@ body.dark-mode button:disabled {
   color: #6b7280 !important;
 }
 
+/* Checkbox ve radio button dark mode */
+body.dark-mode input[type="checkbox"],
+body.dark-mode input[type="radio"] {
+  background-color: #2d2d2d !important;
+  border-color: #4b5563 !important;
+}
+
+body.dark-mode input[type="checkbox"]:checked,
+body.dark-mode input[type="radio"]:checked {
+  background-color: #3b82f6 !important;
+  border-color: #3b82f6 !important;
+}
+
 /* Takvim dark mode */
 body.dark-mode .rdp {
   color: #e5e5e5 !important;
