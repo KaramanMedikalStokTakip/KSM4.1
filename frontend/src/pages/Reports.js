@@ -456,10 +456,24 @@ function Reports() {
               {loading ? 'Yükleniyor...' : 'Raporu Oluştur'}
             </Button>
             {topProfit.length > 0 && (
-              <Button variant="outline" onClick={() => exportToExcel(topProfit, 'en-karlilar')} data-testid="export-profit-btn">
-                <Download className="w-4 h-4 mr-2" />
-                Excel İndir
-              </Button>
+              <>
+                <Button variant="outline" size="sm" onClick={() => exportToExcel(topProfit, 'en-karlilar')} data-testid="export-profit-btn">
+                  <FileSpreadsheet className="w-4 h-4 mr-2" />
+                  Excel
+                </Button>
+                <Button variant="outline" size="sm" onClick={() => exportToPDF(topProfit, 'en-karlilar', 'En Karlı Ürünler Raporu')}>
+                  <FileText className="w-4 h-4 mr-2" />
+                  PDF
+                </Button>
+                <Button variant="outline" size="sm" onClick={() => exportToWord(topProfit, 'en-karlilar', 'En Karlı Ürünler Raporu')}>
+                  <FileType className="w-4 h-4 mr-2" />
+                  Word
+                </Button>
+                <Button variant="outline" size="sm" onClick={() => exportToTxt(topProfit, 'en-karlilar', 'En Karlı Ürünler Raporu')}>
+                  <Download className="w-4 h-4 mr-2" />
+                  TXT
+                </Button>
+              </>
             )}
           </div>
 
