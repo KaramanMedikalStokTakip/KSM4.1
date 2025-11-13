@@ -168,7 +168,16 @@ function Login() {
               
               <button
                 onClick={handleDismissPWA}
-                className="flex-shrink-0 text-white/80 hover:text-white transition-colors"
+                style={{
+                  backgroundColor: 'transparent',
+                  border: 'none',
+                  padding: '6px',
+                  cursor: 'pointer',
+                  transition: 'opacity 0.2s',
+                  outline: 'none',
+                  boxShadow: 'none'
+                }}
+                className="flex-shrink-0 text-white/80 hover:text-white"
                 aria-label="Kapat"
               >
                 <X className="w-4 h-4" />
