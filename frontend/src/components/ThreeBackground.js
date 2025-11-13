@@ -79,6 +79,11 @@ function ThreeBackground({ isDark = false }) {
 
     // Animation loop
     const animate = () => {
+      // Check if animation should continue
+      if (!isAnimatingRef.current) {
+        return;
+      }
+
       // Check if refs still exist
       if (!sceneRef.current || !particlesMeshRef.current || !linesMeshRef.current || 
           !rendererRef.current || !cameraRef.current) {
