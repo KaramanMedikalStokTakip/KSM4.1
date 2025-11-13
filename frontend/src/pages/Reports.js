@@ -81,6 +81,23 @@ function Reports() {
     }
   };
 
+  const fetchStockReport = async () => {
+    setLoading(true);
+    try {
+      const params = {};
+      if (selectedBrand) params.brand = selectedBrand;
+      if (selectedCategory) params.category = selectedCategory;
+
+      const response = await axios.get(`${API}/reports/stock`, { params });
+      setStockReport(response.data);
+      toast.success('Stok raporu oluşturuldu');
+    } catch (error) {
+      toast.error('Rapor yüklenemedi');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const exportToExcel = (data, filename) => {
     const csvContent = [
       Object.keys(data[0] || {}).join(','),
