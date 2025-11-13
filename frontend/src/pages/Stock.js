@@ -451,6 +451,11 @@ function Stock() {
     setCurrentProduct(null);
   };
 
+  const openProductDetail = (product) => {
+    setSelectedProductDetail(product);
+    setProductDetailDialogOpen(true);
+  };
+
   if (loading && products.length === 0) {
     return (
       <div className="flex items-center justify-center h-96">
