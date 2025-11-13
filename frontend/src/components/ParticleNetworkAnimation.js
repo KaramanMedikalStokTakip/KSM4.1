@@ -87,7 +87,7 @@ function ParticleNetworkAnimation({ isDark = false }) {
     // Create particles
     const initParticles = () => {
       particles = [];
-      for (let i = 0; i < 60; i++) {
+      for (let i = 0; i < 350; i++) {
         particles.push(new Particle());
       }
       particlesRef.current = particles;
