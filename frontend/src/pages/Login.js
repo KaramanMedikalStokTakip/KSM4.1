@@ -5,10 +5,9 @@ import axios from 'axios';
 import { toast } from 'sonner';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
-import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Label } from '../components/ui/label';
-import { Checkbox } from '../components/ui/checkbox';
-import { Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff, UserCircle2, Moon, Sun } from 'lucide-react';
+import ThreeBackground from '../components/ThreeBackground';
 
 function Login() {
   const navigate = useNavigate();
@@ -17,6 +16,13 @@ function Login() {
   const [loginForm, setLoginForm] = useState({ username: '', password: '' });
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  // Check for dark mode on load
+  useEffect(() => {
+    const darkMode = document.body.classList.contains('dark-mode');
+    setIsDarkMode(darkMode);
+  }, []);
 
   // Load saved credentials if "remember me" was checked
   useEffect(() => {
@@ -27,6 +33,19 @@ function Login() {
       setRememberMe(true);
     }
   }, []);
+
+  const toggleTheme = () => {
+    const newDarkMode = !isDarkMode;
+    setIsDarkMode(newDarkMode);
+    
+    if (newDarkMode) {
+      document.body.classList.add('dark-mode');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.body.classList.remove('dark-mode');
+      localStorage.setItem('theme', 'light');
+    }
+  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -54,8 +73,28 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-blue-50 p-4 relative overflow-hidden">
-      {/* Logo Filigran */}
+    <div className={`min-h-screen flex items-center justify-center p-4 relative overflow-hidden transition-colors duration-300 ${
+      isDarkMode 
+        ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900' 
+        : 'bg-gradient-to-br from-blue-50 via-white to-blue-50'
+    }`}>
+      {/* Three.js Background */}
+      <ThreeBackground isDark={isDarkMode} />
+
+      {/* Theme Toggle Button */}
+      <button
+        onClick={toggleTheme}
+        className={`fixed top-6 right-6 z-50 p-3 rounded-full backdrop-blur-md transition-all duration-300 ${
+          isDarkMode
+            ? 'bg-gray-800/50 text-yellow-400 hover:bg-gray-700/60'
+            : 'bg-white/50 text-blue-600 hover:bg-white/70'
+        } shadow-lg`}
+        aria-label="Toggle theme"
+      >
+        {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+      </button>
+
+      {/* Logo Watermark */}
       <div 
         className="absolute inset-0 flex items-center justify-center pointer-events-none"
         style={{
@@ -63,71 +102,159 @@ function Login() {
           backgroundSize: 'contain',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
-          opacity: 0.08,
+          opacity: isDarkMode ? 0.05 : 0.08,
           filter: 'grayscale(100%)'
         }}
       />
-      <Card className="w-full max-w-md shadow-xl relative z-10" data-testid="login-card">
-        <CardHeader className="space-y-1 text-center">
-          <CardTitle className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
-            Karaman Sağlık Medikal
-          </CardTitle>
-          <p className="text-sm text-gray-500">Stok Takip ve Satış Yönetim Sistemi</p>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleLogin} className="space-y-4">
-            <div>
-              <Label htmlFor="username">Kullanıcı Adı</Label>
+
+      {/* Login Card with Glassmorphism */}
+      <div 
+        className={`w-full max-w-md relative z-10 p-10 rounded-2xl shadow-2xl backdrop-blur-xl transition-all duration-300 ${
+          isDarkMode
+            ? 'bg-gray-800/40 border border-gray-700/50'
+            : 'bg-white/65 border border-white/80'
+        }`}
+        data-testid="login-card"
+      >
+        {/* Header with Icon */}
+        <div className="text-center mb-8">
+          <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 transition-colors ${
+            isDarkMode
+              ? 'bg-blue-500/20 text-blue-400'
+              : 'bg-blue-500/10 text-blue-600'
+          } animate-bounce`}>
+            <UserCircle2 className="w-10 h-10" />
+          </div>
+          <h2 className={`text-2xl font-bold mb-2 ${
+            isDarkMode ? 'text-white' : 'text-gray-900'
+          }`}>
+            Personel Girişi
+          </h2>
+          <p className={`text-sm ${
+            isDarkMode ? 'text-gray-400' : 'text-gray-600'
+          }`}>
+            Karaman Sağlık Medikal Yönetim Paneli
+          </p>
+        </div>
+
+        {/* Login Form */}
+        <form onSubmit={handleLogin} className="space-y-6">
+          {/* Username Input */}
+          <div className="relative">
+            <Label 
+              htmlFor="username" 
+              className={`text-sm font-medium ${
+                isDarkMode ? 'text-gray-300' : 'text-gray-700'
+              }`}
+            >
+              Kullanıcı Adı veya E-posta
+            </Label>
+            <Input
+              id="username"
+              data-testid="login-username-input"
+              value={loginForm.username}
+              onChange={(e) => setLoginForm({ ...loginForm, username: e.target.value })}
+              required
+              className={`mt-1 transition-all ${
+                isDarkMode
+                  ? 'bg-gray-700/50 border-gray-600 text-white placeholder:text-gray-400 focus:border-blue-400 focus:ring-blue-400/20'
+                  : 'bg-white/50 border-gray-300 text-gray-900 placeholder:text-gray-400 focus:border-blue-500 focus:ring-blue-500/20'
+              }`}
+              placeholder="Kullanıcı adınızı girin"
+            />
+          </div>
+
+          {/* Password Input */}
+          <div className="relative">
+            <Label 
+              htmlFor="password" 
+              className={`text-sm font-medium ${
+                isDarkMode ? 'text-gray-300' : 'text-gray-700'
+              }`}
+            >
+              Şifre
+            </Label>
+            <div className="relative mt-1">
               <Input
-                id="username"
-                data-testid="login-username-input"
-                value={loginForm.username}
-                onChange={(e) => setLoginForm({ ...loginForm, username: e.target.value })}
+                id="password"
+                type={showPassword ? "text" : "password"}
+                data-testid="login-password-input"
+                value={loginForm.password}
+                onChange={(e) => setLoginForm({ ...loginForm, password: e.target.value })}
                 required
+                className={`pr-10 transition-all ${
+                  isDarkMode
+                    ? 'bg-gray-700/50 border-gray-600 text-white placeholder:text-gray-400 focus:border-blue-400 focus:ring-blue-400/20'
+                    : 'bg-white/50 border-gray-300 text-gray-900 placeholder:text-gray-400 focus:border-blue-500 focus:ring-blue-500/20'
+                }`}
+                placeholder="Şifrenizi girin"
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className={`absolute right-3 top-1/2 -translate-y-1/2 transition-colors ${
+                  isDarkMode
+                    ? 'text-gray-400 hover:text-gray-200'
+                    : 'text-gray-500 hover:text-gray-700'
+                }`}
+                data-testid="toggle-password-btn"
+              >
+                {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              </button>
             </div>
-            <div>
-              <Label htmlFor="password">Şifre</Label>
-              <div className="relative">
-                <Input
-                  id="password"
-                  type={showPassword ? "text" : "password"}
-                  data-testid="login-password-input"
-                  value={loginForm.password}
-                  onChange={(e) => setLoginForm({ ...loginForm, password: e.target.value })}
-                  required
-                  className="pr-10"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
-                  data-testid="toggle-password-btn"
-                >
-                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                </button>
-              </div>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Checkbox 
-                id="remember" 
+          </div>
+
+          {/* Remember Me & Forgot Password */}
+          <div className="flex justify-between items-center text-sm">
+            <label className={`flex items-center cursor-pointer transition-colors ${
+              isDarkMode
+                ? 'text-gray-300 hover:text-blue-400'
+                : 'text-gray-600 hover:text-blue-600'
+            }`}>
+              <input 
+                type="checkbox" 
                 checked={rememberMe}
-                onCheckedChange={setRememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
+                className="mr-2 accent-blue-600"
                 data-testid="remember-me-checkbox"
               />
-              <Label 
-                htmlFor="remember" 
-                className="text-sm font-normal cursor-pointer"
-              >
-                Beni Hatırla
-              </Label>
-            </div>
-            <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white" disabled={loading} data-testid="login-submit-btn">
-              {loading ? 'Giriş yapılıyor...' : 'Giriş Yap'}
-            </Button>
-          </form>
-        </CardContent>
-      </Card>
+              Beni Hatırla
+            </label>
+            <a 
+              href="#" 
+              className={`font-semibold transition-colors ${
+                isDarkMode
+                  ? 'text-blue-400 hover:text-blue-300'
+                  : 'text-blue-600 hover:text-blue-700'
+              }`}
+            >
+              Şifremi Unuttum?
+            </a>
+          </div>
+
+          {/* Submit Button */}
+          <Button 
+            type="submit" 
+            className={`w-full font-bold py-3 rounded-lg shadow-lg transition-all duration-200 ${
+              isDarkMode
+                ? 'bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white'
+                : 'bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white'
+            } hover:shadow-xl hover:scale-[1.02]`}
+            disabled={loading} 
+            data-testid="login-submit-btn"
+          >
+            {loading ? 'Giriş yapılıyor...' : 'GİRİŞ YAP'}
+          </Button>
+        </form>
+
+        {/* Footer */}
+        <div className={`mt-6 text-center text-xs ${
+          isDarkMode ? 'text-gray-400' : 'text-gray-500'
+        }`}>
+          © 2024 Karaman Sağlık Medikal <br />
+          Güvenli Giriş Sistemi
+        </div>
+      </div>
     </div>
   );
 }
