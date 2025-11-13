@@ -656,6 +656,12 @@ body.dark-mode [role="dialog"] button[type="button"]:has(svg.lucide-x):hover {
   background-color: rgba(255, 255, 255, 0.1) !important;
 }
 
+/* Modal içindeki form butonları - Gradient korunmalı */
+body.dark-mode [role="dialog"] button[type="submit"],
+body.dark-mode [role="dialog"] button[class*="from-blue"] {
+  /* Gradient butonların stilini koru, override etme */
+}
+
 /* Radix UI Dialog Close Button - En spesifik selector */
 button[data-radix-collection-item],
 button[type="button"][class*="absolute"][class*="right"],
