@@ -404,9 +404,23 @@ body.dark-mode .border-blue-200 {
   border-color: #4a5568 !important;
 }
 
-/* Raporlar - Tabs dark mode aktif sekme */
+/* Raporlar - Tabs dark mode */
+body.dark-mode [role="tablist"] {
+  background-color: #2d2d2d !important;
+}
+
+body.dark-mode [role="tablist"] button {
+  color: #9ca3af !important;
+}
+
 body.dark-mode [role="tablist"] button[data-state="active"] {
   background-color: #2563eb !important;
   color: #ffffff !important;
   font-weight: 600 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+}
+
+body.dark-mode [role="tablist"] button:hover:not([data-state="active"]) {
+  background-color: #404040 !important;
+  color: #d1d5db !important;
 }
