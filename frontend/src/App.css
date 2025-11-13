@@ -246,13 +246,38 @@ body.dark-mode .modal {
   color: #e5e5e5 !important;
 }
 
-/* Button'lar */
-body.dark-mode button:not(.bg-blue-600):not(.bg-red-600):not(.bg-green-600):not(.bg-yellow-500):not(.bg-indigo-600) {
+/* Button'lar - İkon butonları hariç */
+body.dark-mode button:not(.bg-blue-600):not(.bg-red-600):not(.bg-green-600):not(.bg-yellow-500):not(.bg-indigo-600):not([aria-label="Close"]):not([aria-label="Kapat"]):not([aria-label="Toggle theme"]):not([aria-label="Şifreyi göster"]):not([aria-label="Şifreyi gizle"]):not([data-testid="toggle-password-btn"]) {
   color: #e5e5e5 !important;
 }
 
-body.dark-mode button:hover:not(.bg-blue-600):not(.bg-red-600):not(.bg-green-600) {
+body.dark-mode button:hover:not(.bg-blue-600):not(.bg-red-600):not(.bg-green-600):not([aria-label="Close"]):not([aria-label="Kapat"]):not([aria-label="Toggle theme"]):not([aria-label="Şifreyi göster"]):not([aria-label="Şifreyi gizle"]):not([data-testid="toggle-password-btn"]) {
   background-color: #333333;
+}
+
+/* İkon butonları dark mode - TAMAMEN TRANSPARAN */
+body.dark-mode button[aria-label="Close"],
+body.dark-mode button[aria-label="Kapat"],
+body.dark-mode button[aria-label="Toggle theme"],
+body.dark-mode button[aria-label="Şifreyi göster"],
+body.dark-mode button[aria-label="Şifreyi gizle"],
+body.dark-mode button[data-testid="toggle-password-btn"],
+body.dark-mode button:has(svg.lucide-x) {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  min-height: auto !important;
+  min-width: auto !important;
+}
+
+body.dark-mode button[aria-label="Close"]:hover,
+body.dark-mode button[aria-label="Kapat"]:hover,
+body.dark-mode button[data-testid="toggle-password-btn"]:hover,
+body.dark-mode button:has(svg.lucide-x):hover {
+  background: transparent !important;
+  background-color: transparent !important;
 }
 
 /* Table elementleri */
