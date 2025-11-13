@@ -246,6 +246,9 @@ frontend:
         - working: true
           agent: "main"
           comment: "Raporlar sayfasındaki tabs (En Çok Satanlar, En Kârlılar) için dark mode'da aktif sekme görünürlüğü iyileştirildi. Dark mode'da aktif sekme için: dark:data-[state=active]:bg-blue-600 (mavi arka plan) ve dark:data-[state=active]:text-white (beyaz yazı) eklendi. Artık hangi sekmenin seçili olduğu açıkça görülüyor."
+        - working: true
+          agent: "main"
+          comment: "İKİNCİ DÜZELTME: Proje CSS body.dark-mode kullanıyor, Tailwind dark mode değil. App.css'e CSS kuralı eklendi: body.dark-mode [role='tablist'] button[data-state='active'] { background-color: #2563eb (mavi); color: #ffffff (beyaz); font-weight: 600 }. Aktif sekme artık parlak mavi arka plan ve beyaz yazı ile belirgin."
 
   - task: "Dashboard - Ürün Bul Görsel İyileştirmesi"
     implemented: true
