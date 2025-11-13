@@ -10,8 +10,6 @@ import { Eye, EyeOff, UserCircle2, Moon, Sun } from 'lucide-react';
 import ThreeBackground from '../components/ThreeBackground';
 
 function Login() {
-  console.log('🎨 YENİ LOGIN COMPONENT YÜKLENDI - THREE.JS VERSİYON');
-  
   const navigate = useNavigate();
   const { login } = useAuth();
   const [loading, setLoading] = useState(false);
