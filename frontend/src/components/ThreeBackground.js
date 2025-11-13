@@ -73,24 +73,14 @@ function ThreeBackground({ isDark = false }) {
     };
 
     // Animation loop
-    let frameCount = 0;
     const animate = () => {
-      if (!isAnimating) {
-        console.log('⚠️ Animation stopped - isAnimating is false');
-        return;
-      }
+      if (!isAnimating) return;
 
       animationIdRef.current = requestAnimationFrame(animate);
 
       // Rotate particles
       particlesMesh.rotation.x += 0.001;
       particlesMesh.rotation.y += 0.001;
-
-      // Log every 60 frames (~ once per second)
-      frameCount++;
-      if (frameCount % 60 === 0) {
-        console.log(`🔄 Animation running - frame ${frameCount}, rotation: ${particlesMesh.rotation.x.toFixed(3)}`);
-      }
 
       // Mouse interaction
       camera.position.x += (mouseRef.current.x * 0.5 - camera.position.x) * 0.05;
