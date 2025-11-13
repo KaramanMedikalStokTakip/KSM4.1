@@ -93,7 +93,10 @@ function ThreeBackground({ isDark = false }) {
 
     // Animation loop
     const animate = () => {
-      if (!isRunning) return;
+      if (!isRunning) {
+        console.log('Animation stopped - isRunning is false');
+        return;
+      }
 
       animationRef.current = requestAnimationFrame(animate);
 
