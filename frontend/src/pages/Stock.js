@@ -848,7 +848,13 @@ function Stock() {
                     <tr key={product.id} className="hover:bg-gray-50" data-testid={`product-row-${product.id}`}>
                       <td className="px-6 py-4 whitespace-nowrap">
                         {product.image_url ? (
-                          <img src={product.image_url} alt={product.name} className="w-16 h-16 object-cover rounded" />
+                          <img 
+                            src={product.image_url} 
+                            alt={product.name} 
+                            className="w-16 h-16 object-cover rounded cursor-pointer hover:opacity-80 transition-opacity" 
+                            onClick={() => openProductDetail(product)}
+                            title="Detayları görmek için tıklayın"
+                          />
                         ) : (
                           <div className="w-16 h-16 bg-gray-200 rounded flex items-center justify-center">
                             <span className="text-gray-400 text-xs">Resim Yok</span>
