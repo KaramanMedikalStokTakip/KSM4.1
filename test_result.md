@@ -219,6 +219,9 @@ frontend:
         - working: true
           agent: "main"
           comment: "İKİNCİ DARK MODE İYİLEŞTİRMESİ: Kullanıcı geri bildirimi sonrası açıklama bölümü daha da güçlendirildi. Arka plan dark:bg-gray-900 (çok koyu), border dark:border-gray-600, başlık ve metin dark:text-gray-50 (çok açık). Maksimum kontrast sağlanıyor."
+        - working: true
+          agent: "main"
+          comment: "ÜÇÜNCÜ DARK MODE İYİLEŞTİRMESİ: Proje Tailwind dark mode değil, CSS body.dark-mode class'ı kullanıyormuş. App.css'e özel CSS kuralları eklendi: body.dark-mode .bg-blue-50 { background-color: #1a1a2e } ve body.dark-mode .border-blue-200 { border-color: #4a5568 }. Açıklama artık koyu bir mavi-gri arka plan üzerinde açık yazı ile görünüyor."
   
   - task: "Made with Emergent Badge Kaldırma"
     implemented: true
