@@ -128,13 +128,8 @@ function Login() {
           <h2 className={`text-2xl font-bold mb-2 ${
             isDarkMode ? 'text-white' : 'text-gray-900'
           }`}>
-            Personel Girişi
-          </h2>
-          <p className={`text-sm ${
-            isDarkMode ? 'text-gray-400' : 'text-gray-600'
-          }`}>
             Karaman Sağlık Medikal Yönetim Paneli
-          </p>
+          </h2>
         </div>
 
         {/* Login Form */}
