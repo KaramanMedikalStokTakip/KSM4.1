@@ -19,6 +19,8 @@ function Stock() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [priceSearchLoading, setPriceSearchLoading] = useState(false);
   const [priceResults, setPriceResults] = useState([]);
+  const [productDetailDialogOpen, setProductDetailDialogOpen] = useState(false);
+  const [selectedProductDetail, setSelectedProductDetail] = useState(null);
   const [editMode, setEditMode] = useState(false);
   const [currentProduct, setCurrentProduct] = useState(null);
   const [aiLoading, setAiLoading] = useState(false);
