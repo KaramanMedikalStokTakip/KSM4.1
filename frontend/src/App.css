@@ -95,11 +95,31 @@
   }
 }
 
-/* Touch-friendly butonlar */
+/* Touch-friendly butonlar - İkon butonları hariç */
 @media (max-width: 1024px) {
-  button, a {
+  button:not([aria-label="Close"]):not([aria-label="Kapat"]):not([aria-label="Toggle theme"]):not([aria-label="Şifreyi göster"]):not([aria-label="Şifreyi gizle"]):not([data-testid="toggle-password-btn"]), 
+  a:not([aria-label="Close"]):not([aria-label="Kapat"]) {
     min-height: 44px;
     min-width: 44px;
+  }
+  
+  /* İkon butonları için override */
+  button[aria-label="Close"],
+  button[aria-label="Kapat"],
+  button[aria-label="Toggle theme"],
+  button[aria-label="Şifreyi göster"],
+  button[aria-label="Şifreyi gizle"],
+  button[data-testid="toggle-password-btn"],
+  button:has(svg.lucide-x) {
+    min-height: auto !important;
+    min-width: auto !important;
+    width: auto !important;
+    height: auto !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 6px !important;
   }
 }
 
