@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-globals */
 
-const CACHE_NAME = 'stok-crm-v1';
+const CACHE_NAME = 'stok-crm-v2-three';
 const urlsToCache = [
   '/',
   '/index.html',
