@@ -165,7 +165,7 @@ body.dark-mode textarea,
 body.dark-mode select {
   background-color: #2d2d2d !important;
   color: #ffffff !important;
-  border-color: #404040 !important;
+  border-color: #4b5563 !important;
 }
 
 body.dark-mode input::placeholder,
@@ -177,8 +177,10 @@ body.dark-mode select::placeholder {
 body.dark-mode input:focus,
 body.dark-mode textarea:focus,
 body.dark-mode select:focus {
-  border-color: #6366f1 !important;
-  background-color: #333333 !important;
+  border-color: #3b82f6 !important;
+  background-color: #1f1f1f !important;
+  ring-color: #3b82f6 !important;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3) !important;
 }
 
 /* Background renkleri */
